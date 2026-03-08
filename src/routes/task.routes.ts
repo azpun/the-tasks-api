@@ -5,6 +5,8 @@ export const TaskRouter = Router()
 
 // get tasks data
 TaskRouter.get('/', getTasks)
+// get task data by task title
+TaskRouter.get('/:taskTitle', getTasks)
 
 // add new task
 TaskRouter.post('/', createTask)
