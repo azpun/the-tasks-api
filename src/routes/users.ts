@@ -6,20 +6,46 @@ export const UserRouter = Router()
 
 // get users data
 UserRouter.get('/', (req: Request, res: Response) => {
-  logger.info('Get Users Data Success')
-  res.status(200).send({
-    message: 'Users',
-    status: 200,
-    data: users
-  })
+  try {
+    logger.info('Get Users Data Success')
+    res.status(200).send({
+      message: 'Users',
+      status: true,
+      statusCode: 200,
+      statusText: 'OK',
+      data: users
+    })
+  } catch (error) {
+    logger.error('Get Users Data Failed')
+    res.status(500).send({
+      message: 'Users',
+      status: false,
+      statusCode: 500,
+      statusText: 'Internal Server Error',
+      data: error
+    })
+  }
 })
 
 // add new users
 UserRouter.post('/', (req: Request, res: Response) => {
-  logger.info('Add New User Success')
-  res.status(200).send({
-    message: 'Users',
-    status: 200,
-    data: req.body
-  })
+  try {
+    logger.info('Add New User Success')
+    res.status(200).send({
+      message: 'Users',
+      status: true,
+      statusCode: 200,
+      statusText: 'OK',
+      data: req.body
+    })
+  } catch (error) {
+    logger.error('Add New User Failed')
+    res.status(500).send({
+      message: 'Users',
+      status: false,
+      statusCode: 500,
+      statusText: 'Internal Server Error',
+      data: error
+    })
+  }
 })
