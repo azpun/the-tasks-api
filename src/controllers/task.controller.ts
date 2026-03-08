@@ -1,12 +1,9 @@
-import { Router, type Request, type Response } from 'express'
-import tasks from '../data/tasks.json' with { type: 'json' }
+import { type Request, type Response } from 'express'
 import { logger } from '../utils/logger.ts'
-import { createTaskValidation } from '../validation/task.validation.ts'
+import { createTaskValidation } from '../validations/task.validation.ts'
+import tasks from '../data/tasks.json' with { type: 'json' }
 
-export const TaskRouter = Router()
-
-// get tasks data
-TaskRouter.get('/', (req: Request, res: Response) => {
+const getTasks = (req: Request, res: Response) => {
   try {
     logger.info('Get Tasks Data Success')
     res.status(200).send({
@@ -26,10 +23,9 @@ TaskRouter.get('/', (req: Request, res: Response) => {
       data: error
     })
   }
-})
+}
 
-// add new task
-TaskRouter.post('/', (req: Request, res: Response) => {
+const createTask = (req: Request, res: Response) => {
   try {
     const validation = createTaskValidation(req.body)
     if (!validation.success) {
@@ -60,4 +56,6 @@ TaskRouter.post('/', (req: Request, res: Response) => {
       data: error
     })
   }
-})
+}
+
+export { getTasks, createTask }
