@@ -5,6 +5,9 @@ import type { Application } from 'express'
 import { route } from './routes/index.ts'
 import { logger } from './utils/logger.ts'
 
+// connect DB
+import './utils/connectDB.ts'
+
 const app: Application = express()
 const port: number = 3000
 

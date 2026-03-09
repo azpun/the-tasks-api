@@ -1,12 +1,13 @@
-import fs from 'fs/promises'
+import taskModel from "../models/task.model.ts";
+import { logger } from "../utils/logger.ts";
 
-const readDataTask = async () => {
-  try {
-    const data = await fs.readFile('src/data/tasks.json', 'utf-8')
-    return console.log(data)
-  } catch (error) {
-    console.error('Error reading file:', error)
-  }
+const getTasksDB = async () => {
+  return await taskModel.find().then(data => {
+    return data
+  }).catch(err => {
+    logger.info("Cannot get data from DB")
+    logger.error(err)
+  })
 }
 
-export { readDataTask }
+export {getTasksDB}
