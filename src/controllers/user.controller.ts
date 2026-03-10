@@ -1,17 +1,18 @@
 import { type Request, type Response } from 'express'
-import users from '../data/users.json' with { type: 'json' }
 import { logger } from '../utils/logger.ts'
+import { getUsersDB } from '../services/user.service.ts'
 
 // get users data
-const getUsers = (req: Request, res: Response) => {
+const getUsers = async (req: Request, res: Response) => {
   try {
+    const usersDB = await getUsersDB()
     logger.info('Get Users Data Success')
     res.status(200).send({
       message: 'Users',
       status: true,
       statusCode: 200,
       statusText: 'OK',
-      data: users
+      data: usersDB
     })
   } catch (error) {
     logger.error('Get Users Data Failed')

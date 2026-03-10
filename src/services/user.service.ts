@@ -1,14 +1,13 @@
-import fs from 'fs/promises'
+import userModel from "../models/user.model.ts";
+import { logger } from "../utils/logger.ts";
 
-const readUserData = async () => {
-  try {
-    const data = await fs.readFile('src/data/users.json', 'utf-8')
-    return console.log(data)
-  } catch (error) {
-    console.error('Error reading file:', error)
-  }
+const getUsersDB = async () => {
+  return await userModel.find().then(data => {
+    return data
+  }).catch(err => {
+    logger.info("Cannot get data from DB")
+    logger.error(err)
+  }) 
 }
 
-const createUserData = async () => {}
-
-export { readUserData, createUserData }
+export {getUsersDB}

@@ -1,14 +1,17 @@
-import mongoose from "mongoose";
-import { boolean, string } from "zod";
+import mongoose from 'mongoose'
+import { boolean, string } from 'zod'
 
 // membuat schema data (rancangan data)
 const taskSchema = new mongoose.Schema(
   {
     task_id: {
       type: string,
-      unique: true,
+      unique: true
     },
-    title: {
+    task: {
+      type: string
+    },
+    description: {
       type: string
     },
     priority: {
@@ -18,7 +21,7 @@ const taskSchema = new mongoose.Schema(
       type: boolean
     }
   },
-  {timestamps: true} // auto generate 'createAt' dan 'updateAt'
+  { timestamps: true } // auto generate 'createAt' dan 'updateAt'
 )
 
 // membuat model data dari schema data

@@ -1,7 +1,0 @@
-[
-  { "id": 1, "title": "Bangun Pagi", "priority": "high", "isDone": true },
-  { "id": 2, "title": "Olahraga", "priority": "medium", "isDone": false },
-  { "id": 3, "title": "Baca Buku", "priority": "low", "isDone": false },
-  { "id": 4, "title": "Scheduling Jadwal", "priority": "high", "isDone": false },
-  { "id": 5, "title": "Main Game", "priority": "medium", "isDone": false }
-]
