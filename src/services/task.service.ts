@@ -14,8 +14,20 @@ const getTasksDB = async () => {
     })
 }
 
+const getTaskById = async (id: string) => {
+  return await taskModel
+    .findOne({ task_id: id })
+    .then((data) => {
+      return data
+    })
+    .catch((err) => {
+      logger.info('Cannot get data from DB')
+      logger.error(err)
+    })
+}
+
 const addTasksDB = async (payload: TaskValidation) => {
   return await taskModel.create(payload as Parameters<typeof taskModel.create>[0])
 }
 
-export { getTasksDB, addTasksDB }
+export { getTasksDB, addTasksDB, getTaskById }

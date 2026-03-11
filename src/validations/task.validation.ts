@@ -4,7 +4,7 @@ import * as zod from 'zod'
 export const taskSchema = zod.object({
   task_id: zod.string().min(1, 'Task ID is required'),
   task: zod.string().min(1, 'Title is required'),
-  description: zod.string().optional(),
+  description: zod.string().default(''),
   priority: zod.enum(['Low', 'Medium', 'High'], { message: 'Priority is required' }).default('Low'),
   isDone: zod.boolean().default(false)
 })

@@ -1,52 +1,49 @@
 import { type Request, type Response } from 'express'
 import { logger } from '../utils/logger.ts'
-import { createTaskValidation, type TaskValidation } from '../validations/task.validation.ts'
-import { addTasksDB, getTasksDB } from '../services/task.service.ts'
+import { createTaskValidation } from '../validations/task.validation.ts'
+import { addTasksDB, getTaskById, getTasksDB } from '../services/task.service.ts'
 import { v7 as uuidv7 } from 'uuid'
 
 const getTasks = async (req: Request, res: Response) => {
   try {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const tasks: any = await getTasksDB()
     const {
-      params: { task }
+      params: { id }
     } = req
 
-    if (task) {
-      const fileteredTasks = tasks.filter((data: TaskValidation) => {
-        if (data.task === task) {
-          return data
-        }
-      })
-      if (fileteredTasks.length === 0) {
-        logger.info('Data Not Found')
-        res.status(404).send({
-          message: 'Tasks',
-          status: false,
-          statusCode: 404,
-          statusText: 'Not Found',
-          data: []
-        })
-      } else {
+    if (id) {
+      const tasks = await getTaskById(id)
+
+      if (tasks) {
         logger.info('Get Task Data Success')
         return res.status(200).send({
           message: 'Tasks',
           status: true,
           statusCode: 200,
           statusText: 'OK',
-          data: fileteredTasks[0]
+          data: tasks
+        })
+      } else {
+        logger.info('Get Task Data Failed')
+        return res.status(404).send({
+          message: 'Tasks',
+          status: true,
+          statusCode: 404,
+          statusText: 'Data Not Found',
+          data: []
         })
       }
+    } else {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const tasks: any = await getTasksDB()
+      logger.info('Get Tasks Data Success')
+      return res.status(200).send({
+        message: 'Tasks',
+        status: true,
+        statusCode: 200,
+        statusText: 'OK',
+        data: tasks
+      })
     }
-
-    logger.info('Get Tasks Data Success')
-    return res.status(200).send({
-      message: 'Tasks',
-      status: true,
-      statusCode: 200,
-      statusText: 'OK',
-      data: tasks
-    })
   } catch (error) {
     logger.error('Get Tasks Data Failed')
     res.status(500).send({
@@ -69,8 +66,7 @@ const createTask = async (req: Request, res: Response) => {
       message: 'Tasks',
       status: false,
       statusCode: 400,
-      statusText: 'Bad Request',
-      data: result.error
+      statusText: 'Bad Request'
     })
   }
 
