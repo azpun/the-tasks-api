@@ -1,26 +1,20 @@
 import { type Request, type Response } from 'express'
 import { logger } from '../utils/logger.ts'
-import { createTaskValidation } from '../validations/task.validation.ts'
-import { getTasksDB } from '../services/task.service.ts'
-
-interface TaskType {
-  task_id: string
-  task: string
-  description: string
-  priority: string
-  isDone: boolean
-}
+import { createTaskValidation, type TaskValidation } from '../validations/task.validation.ts'
+import { addTasksDB, getTasksDB } from '../services/task.service.ts'
+import { v7 as uuidv7 } from 'uuid'
 
 const getTasks = async (req: Request, res: Response) => {
   try {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const tasks: any = await getTasksDB()
     const {
-      params: { taskTitle }
+      params: { task }
     } = req
-    if (taskTitle) {
-      const fileteredTasks = tasks.filter((data: TaskType) => {
-        if (data.task === taskTitle) {
+
+    if (task) {
+      const fileteredTasks = tasks.filter((data: TaskValidation) => {
+        if (data.task === task) {
           return data
         }
       })
@@ -35,7 +29,7 @@ const getTasks = async (req: Request, res: Response) => {
         })
       } else {
         logger.info('Get Task Data Success')
-        res.status(200).send({
+        return res.status(200).send({
           message: 'Tasks',
           status: true,
           statusCode: 200,
@@ -44,6 +38,7 @@ const getTasks = async (req: Request, res: Response) => {
         })
       }
     }
+
     logger.info('Get Tasks Data Success')
     return res.status(200).send({
       message: 'Tasks',
@@ -64,35 +59,39 @@ const getTasks = async (req: Request, res: Response) => {
   }
 }
 
-const createTask = (req: Request, res: Response) => {
+const createTask = async (req: Request, res: Response) => {
+  req.body.task_id = uuidv7()
+  const result = createTaskValidation(req.body)
+
+  if (result.success === false) {
+    logger.error(`Add New Task Failed: ${result.error}`)
+    return res.status(400).send({
+      message: 'Tasks',
+      status: false,
+      statusCode: 400,
+      statusText: 'Bad Request',
+      data: result.error
+    })
+  }
+
   try {
-    const validation = createTaskValidation(req.body)
-    if (!validation.success) {
-      logger.error('Add New Task Failed')
-      res.status(400).send({
-        message: 'Tasks',
-        status: false,
-        statusCode: 400,
-        statusText: 'Bad Request',
-        data: validation.error
-      })
-    }
+    const data = result.data
+    await addTasksDB(data)
+
     logger.info('Add New Task Success')
     res.status(200).send({
       message: 'Tasks',
       status: true,
-      statusCode: 200,
-      statusText: 'OK',
-      data: req.body
+      statusCode: 201,
+      statusText: 'Created'
     })
   } catch (error) {
-    logger.error('Add New Task Failed')
+    logger.error(`Add New Task Failed: ${error}`)
     res.status(500).send({
       message: 'Tasks',
       status: false,
       statusCode: 500,
-      statusText: 'Internal Server Error',
-      data: error
+      statusText: 'Internal Server Error'
     })
   }
 }
