@@ -1,7 +1,7 @@
 import { type Request, type Response } from 'express'
 import { logger } from '../utils/logger.ts'
 import { createTaskValidation, updateTaskValidation } from '../validations/task.validation.ts'
-import { addTasksDB, getTaskById, getTasksDB, updateTaskById } from '../services/task.service.ts'
+import { addTasksDB, deleteTaskById, getTaskById, getTasksDB, updateTaskById } from '../services/task.service.ts'
 import { v7 as uuidv7 } from 'uuid'
 
 const getTasks = async (req: Request, res: Response) => {
@@ -12,23 +12,23 @@ const getTasks = async (req: Request, res: Response) => {
 
     // get task by id
     if (id) {
-      let taskId: string | undefined;
+      let taskId: string | undefined
       if (typeof id === 'string') {
-        taskId = id;
+        taskId = id
       } else if (Array.isArray(id) && id.length > 0) {
-        taskId = id[0];
+        taskId = id[0]
       }
       if (!taskId) {
-        logger.info('Get Task Data Failed: Invalid id');
+        logger.info('Get Task Data Failed: Invalid id')
         return res.status(400).send({
           message: 'Tasks',
           status: false,
           statusCode: 400,
           statusText: 'Bad Request',
           data: []
-        });
+        })
       }
-      const tasks = await getTaskById(taskId);
+      const tasks = await getTaskById(taskId)
 
       if (tasks) {
         logger.info('Get Task Data Success')
@@ -153,4 +153,37 @@ const updateTask = async (req: Request, res: Response) => {
   }
 }
 
-export { getTasks, createTask, updateTask }
+const deleteTask = async (req: Request, res: Response) => {
+  const {
+    params: { id }
+  } = req
+  try {
+    if (typeof id !== 'string') {
+      logger.error('Delete Task Failed: Invalid or missing id')
+      return res.status(400).send({
+        message: 'Tasks',
+        status: false,
+        statusCode: 400,
+        statusText: 'Bad Request'
+      })
+    }
+    await deleteTaskById(id)
+    logger.info('Delete Task Success')
+    res.status(200).send({
+      message: 'Tasks',
+      status: true,
+      statusCode: 200,
+      statusText: 'OK'
+    })
+  } catch (error) {
+    logger.error(`Delete Task Failed: ${error}`)
+    res.status(500).send({
+      message: 'Tasks',
+      status: false,
+      statusCode: 500,
+      statusText: 'Internal Server Error'
+    })
+  }
+}
+
+export { getTasks, createTask, updateTask, deleteTask }

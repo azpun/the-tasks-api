@@ -42,4 +42,16 @@ const updateTaskById = async (id: string, payload: TaskValidationPartial) => {
     })
 }
 
-export { getTasksDB, addTasksDB, getTaskById, updateTaskById }
+const deleteTaskById = async (id: string) => {
+  return await taskModel
+    .findOneAndDelete({ task_id: id })
+    .then((data) => {
+      return data
+    })
+    .catch((err) => {
+      logger.info('Cannot find data from DB to delete')
+      logger.error(err)
+    })
+}
+
+export { getTasksDB, addTasksDB, getTaskById, updateTaskById, deleteTaskById }

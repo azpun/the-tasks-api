@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { createTask, getTasks, updateTask } from '../controllers/task.controller.ts'
+import { createTask, deleteTask, getTasks, updateTask } from '../controllers/task.controller.ts'
 
 export const TaskRouter = Router()
 
@@ -13,3 +13,5 @@ TaskRouter.post('/', createTask)
 
 // update task
 TaskRouter.put('/:id', updateTask)
+
+TaskRouter.delete('/:id', deleteTask)
