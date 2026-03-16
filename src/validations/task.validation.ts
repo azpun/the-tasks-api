@@ -1,5 +1,4 @@
 import * as zod from 'zod'
-// import type { TaskValidation } from '../types/task.types.ts'
 
 export const taskSchema = zod.object({
   task_id: zod.string().min(1, 'Task ID is required'),
