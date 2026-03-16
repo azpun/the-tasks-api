@@ -1,20 +1,19 @@
-import mongoose from "mongoose";
-import { string } from "zod";
+import mongoose from 'mongoose'
 
 const userSchema = new mongoose.Schema(
-    {
-        user_id:{
-            unique: true,
-            type: string
-        },
-        email:{
-            type:string
-        },
-        password:{
-            type:string
-        },   
+  {
+    user_id: {
+      unique: true,
+      type: String
     },
-    {timestamps: true}
+    email: {
+      type: String
+    },
+    password: {
+      type: String
+    }
+  },
+  { timestamps: true }
 )
 
 const userModel = mongoose.model('users', userSchema)
