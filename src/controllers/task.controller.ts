@@ -1,7 +1,7 @@
 import { type Request, type Response } from 'express'
 import { logger } from '../utils/logger.ts'
-import { createTaskValidation } from '../validations/task.validation.ts'
-import { addTasksDB, getTaskById, getTasksDB } from '../services/task.service.ts'
+import { createTaskValidation, updateTaskValidation } from '../validations/task.validation.ts'
+import { addTasksDB, getTaskById, getTasksDB, updateTaskById } from '../services/task.service.ts'
 import { v7 as uuidv7 } from 'uuid'
 
 const getTasks = async (req: Request, res: Response) => {
@@ -10,8 +10,25 @@ const getTasks = async (req: Request, res: Response) => {
       params: { id }
     } = req
 
+    // get task by id
     if (id) {
-      const tasks = await getTaskById(id)
+      let taskId: string | undefined;
+      if (typeof id === 'string') {
+        taskId = id;
+      } else if (Array.isArray(id) && id.length > 0) {
+        taskId = id[0];
+      }
+      if (!taskId) {
+        logger.info('Get Task Data Failed: Invalid id');
+        return res.status(400).send({
+          message: 'Tasks',
+          status: false,
+          statusCode: 400,
+          statusText: 'Bad Request',
+          data: []
+        });
+      }
+      const tasks = await getTaskById(taskId);
 
       if (tasks) {
         logger.info('Get Task Data Success')
@@ -58,7 +75,7 @@ const getTasks = async (req: Request, res: Response) => {
 
 const createTask = async (req: Request, res: Response) => {
   req.body.task_id = uuidv7()
-  const result = createTaskValidation(req.body)
+  const result = await createTaskValidation(req.body)
 
   if (result.success === false) {
     logger.error(`Add New Task Failed: ${result.error}`)
@@ -92,4 +109,48 @@ const createTask = async (req: Request, res: Response) => {
   }
 }
 
-export { getTasks, createTask }
+const updateTask = async (req: Request, res: Response) => {
+  const {
+    params: { id }
+  } = req
+  const task = await updateTaskValidation(req.body)
+  if (task.success === false) {
+    logger.error(`Add New Task Failed: ${task.error}`)
+    return res.status(400).send({
+      message: 'Tasks',
+      status: false,
+      statusCode: 400,
+      statusText: 'Bad Request'
+    })
+  }
+  try {
+    const data = task.data
+    if (typeof id !== 'string') {
+      logger.error('Update Task Failed: Invalid or missing id')
+      return res.status(400).send({
+        message: 'Tasks',
+        status: false,
+        statusCode: 400,
+        statusText: 'Bad Request'
+      })
+    }
+    await updateTaskById(id, data)
+    logger.info('Update Task Success')
+    res.status(200).send({
+      message: 'Tasks',
+      status: true,
+      statusCode: 200,
+      statusText: 'OK'
+    })
+  } catch (error) {
+    logger.error(`Add New Task Failed: ${error}`)
+    res.status(500).send({
+      message: 'Tasks',
+      status: false,
+      statusCode: 500,
+      statusText: 'Internal Server Error'
+    })
+  }
+}
+
+export { getTasks, createTask, updateTask }
