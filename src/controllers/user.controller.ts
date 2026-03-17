@@ -3,6 +3,7 @@ import { logger } from '../utils/logger.ts'
 import { createUserDB, getUsersDB } from '../services/user.service.ts'
 import { v7 as uuidv7 } from 'uuid'
 import { createUserValidation } from '../validations/user.validation.ts'
+import { hashPassword } from '../utils/hash.ts'
 // import { hashPassword } from '../utils/hash.ts'
 
 // get users data
@@ -47,6 +48,9 @@ const createUser = async (req: Request, res: Response) => {
   }
 
   try {
+    if (result.data && result.data.password) {
+      result.data.password = `${await hashPassword(req.body.password)}`
+    }
     const data = result.data
     await createUserDB(data)
 
