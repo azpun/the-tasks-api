@@ -8,5 +8,16 @@ export const userSchema = zod.object({
   role: zod.enum(['user', 'admin'], { message: 'Role is required' }).default('user')
 })
 
+export const userSchemaPartial = userSchema.partial()
+
+export const createUserValidation = (payload: UserValidation) => {
+  return userSchema.safeParseAsync(payload)
+}
+
+export const updateUserValidation = (payload: UserValidationPartial) => {
+  return userSchemaPartial.safeParseAsync(payload)
+}
+
 // Dari pada membuat typescript interface, sekarang bisa menggunakan zod.infer sebagai typescript interface/type
 export type UserValidation = zod.infer<typeof userSchema>
+export type UserValidationPartial = zod.infer<typeof userSchemaPartial>
