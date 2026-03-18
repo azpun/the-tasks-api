@@ -1,5 +1,6 @@
 import { Router } from 'express'
 import { createUser, getUsers } from '../controllers/user.controller.ts'
+import { createSession } from '../controllers/auth.controller.ts'
 
 export const UserRouter = Router()
 
@@ -7,4 +8,7 @@ export const UserRouter = Router()
 UserRouter.get('/', getUsers)
 
 // add new users
-UserRouter.post('/', createUser)
+UserRouter.post('/auth/register', createUser)
+
+// login
+UserRouter.post('/auth/login', createSession)

@@ -20,3 +20,20 @@ export const getUsersDB = async () => {
       logger.error(err)
     })
 }
+
+export const getUserByEmail = async (email: string) => {
+  const user = await userModel.findOne({ email })
+  if (!user) {
+    throw new Error('User not found')
+  }
+  if (!user.user_id || !user.email) {
+    throw new Error('Invalid user data')
+  }
+  return {
+    user_id: user.user_id,
+    email: user.email,
+    name: user.name,
+    password: user.password,
+    role: user.role as 'user' | 'admin'
+  }
+}

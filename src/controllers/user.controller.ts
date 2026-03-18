@@ -7,7 +7,7 @@ import { hashPassword } from '../utils/hash.ts'
 // import { hashPassword } from '../utils/hash.ts'
 
 // get users data
-const getUsers = async (req: Request, res: Response) => {
+export const getUsers = async (req: Request, res: Response) => {
   try {
     const usersDB = await getUsersDB()
     logger.info('Get Users Data Success')
@@ -31,7 +31,7 @@ const getUsers = async (req: Request, res: Response) => {
 }
 
 // add user
-const createUser = async (req: Request, res: Response) => {
+export const createUser = async (req: Request, res: Response) => {
   req.body.user_id = uuidv7()
   const result = await createUserValidation(req.body)
   // result.data?.password = await hashPassword(req.body.password)
@@ -55,11 +55,11 @@ const createUser = async (req: Request, res: Response) => {
     await createUserDB(data)
 
     logger.info('Add New User Success')
-    res.status(200).send({
+    res.status(201).send({
       message: 'Users',
       status: true,
-      statusCode: 200,
-      statusText: 'OK'
+      statusCode: 201,
+      statusText: 'OK - User Created'
     })
   } catch (error) {
     logger.error('Add New User Failed')
@@ -72,5 +72,3 @@ const createUser = async (req: Request, res: Response) => {
     })
   }
 }
-
-export { getUsers, createUser }
