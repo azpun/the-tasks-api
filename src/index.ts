@@ -8,6 +8,8 @@ import { logger } from './utils/logger.ts'
 // connect DB
 import './utils/connectDB.ts'
 
+import deserializeToken from './middleware/deserializeToken.middleware.ts'
+
 const app: Application = express()
 const port: number = 3000
 
@@ -23,6 +25,9 @@ app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Headers', '*')
   next()
 })
+
+// deserialize token
+app.use(deserializeToken)
 
 route(app)
 

@@ -173,7 +173,7 @@ const deleteTask = async (req: Request, res: Response) => {
       message: 'Tasks',
       status: true,
       statusCode: 200,
-      statusText: 'OK'
+      statusText: 'OK - Delete Successfully'
     })
   } catch (error) {
     logger.error(`Delete Task Failed: ${error}`)

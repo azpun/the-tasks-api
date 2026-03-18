@@ -13,3 +13,20 @@ export const generateToken = (payload: object, SignOptions?: jwt.SignOptions | u
     throw new Error('JWT private key is not defined')
   }
 }
+
+export const verifyToken = (token: string) => {
+  try {
+    const decoded = jwt.verify(token, CONFIG.jwt_public)
+    return {
+      valid: true,
+      expired: false,
+      decoded
+    }
+  } catch (error) {
+    return {
+      valid: false,
+      expired: error instanceof jwt.TokenExpiredError,
+      decoded: null
+    }
+  }
+}

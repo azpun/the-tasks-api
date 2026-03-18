@@ -4,7 +4,6 @@ import { createUserDB, getUsersDB } from '../services/user.service.ts'
 import { v7 as uuidv7 } from 'uuid'
 import { createUserValidation } from '../validations/user.validation.ts'
 import { hashPassword } from '../utils/hash.ts'
-// import { hashPassword } from '../utils/hash.ts'
 
 // get users data
 export const getUsers = async (req: Request, res: Response) => {
@@ -34,7 +33,6 @@ export const getUsers = async (req: Request, res: Response) => {
 export const createUser = async (req: Request, res: Response) => {
   req.body.user_id = uuidv7()
   const result = await createUserValidation(req.body)
-  // result.data?.password = await hashPassword(req.body.password)
 
   if (result.success === false) {
     logger.info('Add New User Failed')
