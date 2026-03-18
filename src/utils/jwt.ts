@@ -1,6 +1,8 @@
+// import { refreshToken } from './../controllers/auth.controller'
 import jwt from 'jsonwebtoken'
 import CONFIG from '../config/environtment.ts'
 import { logger } from './logger.ts'
+// import { getUserByEmail } from '../services/user.service.ts'
 
 export const generateToken = (payload: object, SignOptions?: jwt.SignOptions | undefined) => {
   if (CONFIG.jwt_private) {
@@ -30,3 +32,7 @@ export const verifyToken = (token: string) => {
     }
   }
 }
+
+// export const refreshAccessToken = async (refreshToken: string) => {
+
+// }

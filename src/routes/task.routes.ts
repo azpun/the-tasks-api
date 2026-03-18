@@ -1,16 +1,16 @@
 import { Router } from 'express'
 import { createTask, deleteTask, getTasks, updateTask } from '../controllers/task.controller.ts'
-import { requireAdmin, requireUser } from '../middleware/auth.middleware.ts'
+import { requireUser } from '../middleware/auth.middleware.ts'
 
 export const TaskRouter = Router()
 
 // get tasks data
-TaskRouter.get('/', getTasks)
+TaskRouter.get('/', requireUser, getTasks)
 // get task data by task title
-TaskRouter.get('/:id', getTasks)
+TaskRouter.get('/:id', requireUser, getTasks)
 
 // add new task
-TaskRouter.post('/', requireAdmin, createTask)
+TaskRouter.post('/', requireUser, createTask)
 
 // update task
 TaskRouter.put('/:id', requireUser, updateTask)
