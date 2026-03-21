@@ -1,30 +1,22 @@
-import js from "@eslint/js";
-import globals from "globals";
-import tseslint from "typescript-eslint";
-import json from "@eslint/json";
-import { defineConfig, globalIgnores } from "eslint/config";
+import js from '@eslint/js'
+import globals from 'globals'
+import tseslint from 'typescript-eslint'
+import json from '@eslint/json'
+import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
-  globalIgnores([
-    "node_modules",
-    "dist",
-    "build",
-    "tsconfig.json",
-    "package.json",
-    "package-lock.json",
-    "README.md",
-  ]),
+  globalIgnores(['node_modules', 'dist', 'build', 'tsconfig.json', 'package.json', 'package-lock.json', 'README.md']),
   {
-    files: ["**/*.{js,mjs,cjs,ts,mts,cts}"],
+    files: ['**/*.{js,mjs,cjs,ts,mts,cts}'],
     plugins: { js },
-    extends: ["js/recommended"],
-    languageOptions: { globals: globals.node },
+    extends: ['js/recommended'],
+    languageOptions: { globals: globals.node }
   },
   tseslint.configs.recommended,
   {
-    files: ["**/*.json"],
+    files: ['**/*.json'],
     plugins: { json },
-    language: "json/json",
-    extends: ["json/recommended"],
-  },
-]);
+    language: 'json/json',
+    extends: ['json/recommended']
+  }
+])
