@@ -1,6 +1,5 @@
 {
     "version": 2,
-    "name": "my-first-backend-tasks",
     "builds": [
       {
         "src": "src/index.ts",
