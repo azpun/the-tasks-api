@@ -1,6 +1,6 @@
-import taskModel from '../models/task.model.ts'
-import { logger } from '../utils/logger.ts'
-import type { TaskValidation, TaskValidationPartial } from '../validations/task.validation.ts'
+import taskModel from '../models/task.model.js'
+import { logger } from '../utils/logger.js'
+import type { TaskValidation, TaskValidationPartial } from '../validations/task.validation.js'
 
 const getTasksDB = async () => {
   return await taskModel

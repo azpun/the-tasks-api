@@ -1,8 +1,8 @@
 // import { refreshToken } from './../controllers/auth.controller'
 import jwt from 'jsonwebtoken'
-import CONFIG from '../config/environtment.ts'
-import { logger } from './logger.ts'
-// import { getUserByEmail } from '../services/user.service.ts'
+import CONFIG from '../config/environtment.js'
+import { logger } from './logger.js'
+// import { getUserByEmail } from '../services/user.service.js'
 
 export const generateToken = (payload: object, SignOptions?: jwt.SignOptions | undefined) => {
   if (CONFIG.jwt_private) {

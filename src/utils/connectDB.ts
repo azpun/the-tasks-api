@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
-import config from '../config/environtment.ts'
-import { logger } from './logger.ts'
+import config from '../config/environtment.js'
+import { logger } from './logger.js'
 
 mongoose
   .connect(`${config.db}`)

@@ -1,10 +1,10 @@
 import { type Request, type Response } from 'express'
-import { logger } from '../utils/logger.ts'
-import { createSessionValidation, refreshTokenValidation } from '../validations/auth.validation.ts'
-import type { UserValidation } from '../validations/user.validation.ts'
-import { getUserByEmail } from '../services/user.service.ts'
-import { comparePassword } from '../utils/hash.ts'
-import { generateToken, verifyToken } from '../utils/jwt.ts'
+import { logger } from '../utils/logger.js'
+import { createSessionValidation, refreshTokenValidation } from '../validations/auth.validation.js'
+import type { UserValidation } from '../validations/user.validation.js'
+import { getUserByEmail } from '../services/user.service.js'
+import { comparePassword } from '../utils/hash.js'
+import { generateToken, verifyToken } from '../utils/jwt.js'
 
 export const createSession = async (req: Request, res: Response) => {
   const result = createSessionValidation(req.body)

@@ -1,5 +1,5 @@
 import type { Request, Response, NextFunction } from 'express'
-import { verifyToken } from '../utils/jwt.ts'
+import { verifyToken } from '../utils/jwt.js'
 
 const deserializeToken = (req: Request, res: Response, next: NextFunction) => {
   const accessToken = req.headers.authorization?.replace(/Bearer\s/, '')

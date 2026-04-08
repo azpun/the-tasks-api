@@ -1,5 +1,5 @@
 import { Router, type Request, type Response } from 'express'
-import { logger } from '../utils/logger.ts'
+import { logger } from '../utils/logger.js'
 
 export const LandingRouter = Router()
 

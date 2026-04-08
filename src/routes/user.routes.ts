@@ -1,7 +1,7 @@
 import { Router } from 'express'
-import { createUser, getUsers } from '../controllers/user.controller.ts'
-import { createSession, refreshToken } from '../controllers/auth.controller.ts'
-// import { requireAdmin } from '../middleware/auth.middleware.ts'
+import { createUser, getUsers } from '../controllers/user.controller.js'
+import { createSession, refreshToken } from '../controllers/auth.controller.js'
+// import { requireAdmin } from '../middleware/auth.middleware.js'
 
 export const UserRouter = Router()
 

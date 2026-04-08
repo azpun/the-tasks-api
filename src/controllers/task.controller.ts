@@ -1,7 +1,7 @@
 import { type Request, type Response } from 'express'
-import { logger } from '../utils/logger.ts'
-import { createTaskValidation, updateTaskValidation } from '../validations/task.validation.ts'
-import { addTasksDB, deleteTaskById, getTaskById, getTasksDB, updateTaskById } from '../services/task.service.ts'
+import { logger } from '../utils/logger.js'
+import { createTaskValidation, updateTaskValidation } from '../validations/task.validation.js'
+import { addTasksDB, deleteTaskById, getTaskById, getTasksDB, updateTaskById } from '../services/task.service.js'
 import { v7 as uuidv7 } from 'uuid'
 
 const getTasks = async (req: Request, res: Response) => {

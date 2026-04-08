@@ -1,9 +1,9 @@
 import { type Request, type Response } from 'express'
-import { logger } from '../utils/logger.ts'
-import { createUserDB, getUsersDB } from '../services/user.service.ts'
+import { logger } from '../utils/logger.js'
+import { createUserDB, getUsersDB } from '../services/user.service.js'
 import { v7 as uuidv7 } from 'uuid'
-import { createUserValidation } from '../validations/user.validation.ts'
-import { hashPassword } from '../utils/hash.ts'
+import { createUserValidation } from '../validations/user.validation.js'
+import { hashPassword } from '../utils/hash.js'
 
 // get users data
 export const getUsers = async (req: Request, res: Response) => {

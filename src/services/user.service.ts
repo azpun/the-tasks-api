@@ -1,6 +1,6 @@
-import userModel from '../models/user.model.ts'
-import type { UserValidation } from '../validations/user.validation.ts'
-import { logger } from '../utils/logger.ts'
+import userModel from '../models/user.model.js'
+import type { UserValidation } from '../validations/user.validation.js'
+import { logger } from '../utils/logger.js'
 
 export const createUserDB = async (payload: UserValidation) => {
   return await userModel.create(payload as Parameters<typeof userModel.create>[0]).catch((err) => {

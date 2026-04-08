@@ -1,7 +1,7 @@
 import type { Application, Router } from 'express'
-import { TaskRouter } from './task.routes.ts'
-import { UserRouter } from './user.routes.ts'
-import { LandingRouter } from './landing.routes.ts'
+import { TaskRouter } from './task.routes.js'
+import { UserRouter } from './user.routes.js'
+import { LandingRouter } from './landing.routes.js'
 
 const _routes: Array<[string, Router]> = [
   ['/', LandingRouter],

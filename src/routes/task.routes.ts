@@ -1,6 +1,6 @@
 import { Router } from 'express'
-import { createTask, deleteTask, getTasks, updateTask } from '../controllers/task.controller.ts'
-import { requireUser } from '../middleware/auth.middleware.ts'
+import { createTask, deleteTask, getTasks, updateTask } from '../controllers/task.controller.js'
+import { requireUser } from '../middleware/auth.middleware.js'
 
 export const TaskRouter = Router()
 
