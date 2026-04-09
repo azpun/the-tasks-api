@@ -5,8 +5,8 @@ import { LandingRouter } from './landing.routes.js'
 
 const _routes: Array<[string, Router]> = [
   ['/', LandingRouter],
-  ['/tasks', TaskRouter],
-  ['/users', UserRouter]
+  ['/api/v1/tasks', TaskRouter],
+  ['/api/v1/users', UserRouter]
 ]
 
 export const route = (app: Application) => {

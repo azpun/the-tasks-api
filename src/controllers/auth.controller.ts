@@ -28,7 +28,7 @@ export const createSession = async (req: Request, res: Response) => {
       })
     }
 
-    const accessToken = generateToken({ ...user }, { expiresIn: '5s' })
+    const accessToken = generateToken({ ...user }, { expiresIn: '1d' })
     const refreshToken = generateToken({ ...user }, { expiresIn: '1y' })
 
     if (accessToken) {
@@ -75,7 +75,7 @@ export const refreshToken = async (req: Request, res: Response) => {
     const user = await getUserByEmail(decoded.email)
     if (!user) return false
 
-    const accessToken = generateToken({ ...user }, { expiresIn: '1h' })
+    const accessToken = generateToken({ ...user }, { expiresIn: '1d' })
     const newRefreshToken = generateToken({ ...user }, { expiresIn: '1y' })
 
     if (accessToken) {
