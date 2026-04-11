@@ -20,8 +20,8 @@ export const createSession = async (req: Request, res: Response) => {
     const user: UserValidation = await getUserByEmail(result.data.email)
     const isValid = await comparePassword(result.data.password, user.password)
 
-    console.log(result.data.password)
-    console.log(user.password)
+    // console.log(result.data.password)
+    // console.log(user.password)
 
     if (!isValid) {
       logger.error('Invalid email or password')
