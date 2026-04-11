@@ -32,7 +32,7 @@ export const createSession = async (req: Request, res: Response) => {
       })
     }
 
-    const accessToken = generateToken({ ...user }, { expiresIn: '1d' })
+    const accessToken = generateToken({ ...user }, { expiresIn: '1h' })
 
     console.log(accessToken)
     if (!accessToken) {
@@ -99,8 +99,7 @@ export const refreshToken = async (req: Request, res: Response) => {
         statusCode: 200,
         message: 'Token refreshed successfully',
         data: {
-          accessToken,
-          refreshToken: newRefreshToken
+          newRefreshToken: newRefreshToken
         }
       })
     } else {
