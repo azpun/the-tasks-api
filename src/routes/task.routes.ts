@@ -5,7 +5,7 @@ import { requireUser } from '../middleware/auth.middleware.js'
 export const TaskRouter = Router()
 
 // get tasks data
-TaskRouter.get('/', requireUser, getTasks)
+TaskRouter.get('/', getTasks)
 // get task data by task title
 TaskRouter.get('/:id', requireUser, getTasks)
 

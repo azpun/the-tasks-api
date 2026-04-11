@@ -6,12 +6,19 @@ import path from 'path'
 function loadKey(envVar: string, filePath: string): string {
   const envKey = process.env[envVar]
 
+  // console.log(`Loading key for ${envVar}...`)
+  // console.log(`Environment variable ${envVar} is ${envKey ? 'set' : 'not set'}`)
+  // console.log(envKey)
+
   // First check if the key is available as an environment variable (e.g., on Vercel)
   if (envKey) {
     // In Vercel (or CI), the key is stored as a base64-encoded env var
     // to avoid newline escaping issues. Decode it here.
     try {
-      return Buffer.from(envKey.trim(), 'base64').toString('utf-8')
+      const decodedKey = Buffer.from(envKey.trim(), 'base64').toString('utf-8')
+      // console.log(decodedKey)
+
+      return decodedKey
     } catch (err) {
       throw new Error(`Gagal men-decode Base64 untuk variable ${envVar}. Pastikan formatnya benar.`, { cause: err })
     }

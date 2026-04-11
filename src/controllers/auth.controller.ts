@@ -18,9 +18,13 @@ export const createSession = async (req: Request, res: Response) => {
   }
   try {
     const user: UserValidation = await getUserByEmail(result.data.email)
-    const isValid = comparePassword(result.data.password, user.password)
+    const isValid = await comparePassword(result.data.password, user.password)
+
+    console.log(result.data.password)
+    console.log(user.password)
 
     if (!isValid) {
+      logger.error('Invalid email or password')
       return res.status(401).send({
         status: false,
         statusCode: 401,
@@ -29,6 +33,17 @@ export const createSession = async (req: Request, res: Response) => {
     }
 
     const accessToken = generateToken({ ...user }, { expiresIn: '1d' })
+
+    console.log(accessToken)
+    if (!accessToken) {
+      logger.error('Failed to generate access token')
+      return res.status(500).send({
+        status: false,
+        statusCode: 500,
+        massage: 'Failed to generate access token'
+      })
+    }
+
     const refreshToken = generateToken({ ...user }, { expiresIn: '1y' })
 
     if (accessToken) {

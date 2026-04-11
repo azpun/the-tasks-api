@@ -7,5 +7,10 @@ export const hashPassword = async (password: string) => {
 
 // cek dan dekripsi password
 export const comparePassword = async (password: string, hash: string) => {
-  return await bcrypt.compare(password, hash)
+  const isMatch = await bcrypt.compare(password, hash)
+  // if (!isMatch) {
+  //   logger.error('Compare Password Result:Password does not match')
+  // }
+
+  return isMatch
 }
