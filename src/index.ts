@@ -28,6 +28,7 @@ app.use((req, res, next) => {
 // deserialize token
 app.use(deserializeToken)
 
+// routes
 route(app)
 
 // Only call app.listen() in local development.
