@@ -1,9 +1,9 @@
 import { type Request, type Response } from 'express'
 import { logger } from '../utils/logger.js'
 import { createUserDB, getUsersDB } from '../services/user.service.js'
-import { v7 as uuidv7 } from 'uuid'
-import { createUserValidation } from '../validations/user.validation.js'
-import { hashPassword } from '../utils/hash.js'
+// import { v7 as uuidv7 } from 'uuid'
+// import { createUserValidation } from '../validations/user.validation.js'
+// import { hashPassword } from '../utils/hash.js'
 
 // get users data
 export const getUsers = async (req: Request, res: Response) => {
@@ -31,25 +31,8 @@ export const getUsers = async (req: Request, res: Response) => {
 
 // add user
 export const createUser = async (req: Request, res: Response) => {
-  req.body.user_id = uuidv7()
-  const result = await createUserValidation(req.body)
-
-  if (result.success === false) {
-    logger.error('Add New User Failed')
-    return res.status(400).send({
-      message: 'Users',
-      status: false,
-      statusCode: 400,
-      statusText: 'Bad Request',
-      data: result.error
-    })
-  }
-
   try {
-    if (result.data && result.data.password) {
-      result.data.password = `${await hashPassword(req.body.password)}`
-    }
-    const data = result.data
+    const data = req.body
     await createUserDB(data)
 
     logger.info('Add New User Success')
