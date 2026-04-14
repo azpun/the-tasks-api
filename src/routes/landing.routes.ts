@@ -19,9 +19,12 @@ LandingRouter.get('/', (req: Request, res: Response) => {
     <h3>Ini adalah root endpoint dari API the-tasks</h3>
     <p>Terdapat beberapa endpoint di dalam the-tasks, antara lain:</p>
     <ul>
-      <li><a href="/tasks">/tasks</a></li>
-      <li><a href="/users">/users</a></li>
+      <li>/api/v1/tasks</li>
+      <li>/api/v1/auth/login</li>
+      <li>/api/v1/auth/register</li>
     </ul>
+    <p>Silakan gunakan endpoint-endpoint tersebut untuk mengakses fitur-fitur yang tersedia di the-tasks</p>
+    <p>Untuk sementara ini, <strong>silakan gunakan aplikasi postman</strong> untuk mengakses fitur-fitur the-tasks</p>
     </body>
     </html>
   `)
