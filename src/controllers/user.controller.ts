@@ -34,8 +34,6 @@ export const createUser = async (req: Request, res: Response) => {
   req.body.user_id = uuidv7()
   const result = await createUserValidation(req.body)
 
-  // console.log(result)
-  // console.log(result.data)
   if (result.success === false) {
     logger.error('Add New User Failed')
     return res.status(400).send({
