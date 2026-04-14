@@ -37,18 +37,17 @@ export const createUser = async (req: Request, res: Response) => {
 
     logger.info('Add New User Success')
     res.status(201).send({
-      message: 'Users',
       status: true,
       statusCode: 201,
-      statusText: 'OK - User Created'
+      message: 'User created successfully'
     })
   } catch (error) {
     logger.error('Add New User Failed')
     res.status(500).send({
-      message: 'Users',
       status: false,
       statusCode: 500,
       statusText: 'Internal Server Error',
+      message: 'Failed to create user',
       data: error
     })
   }

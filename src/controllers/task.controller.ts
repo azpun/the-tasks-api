@@ -16,10 +16,10 @@ const getTasks = async (req: Request, res: Response) => {
   } catch (error) {
     logger.error('Get Tasks Data Failed')
     res.status(500).send({
-      message: 'Tasks',
       status: false,
       statusCode: 500,
       statusText: 'Internal Server Error',
+      message: 'Get Tasks Data Failed',
       data: error
     })
   }
@@ -35,7 +35,7 @@ const getTaskByIdHandler = async (req: Request, res: Response) => {
     return res.status(200).send({
       status: true,
       statusCode: 200,
-      message: 'Task found successfully',
+      message: 'Get task successfully',
       data: task
     })
   } else {
@@ -63,10 +63,10 @@ const createTask = async (req: Request, res: Response) => {
   } catch (error) {
     logger.error(`Add New Task Failed: ${error}`)
     res.status(500).send({
-      message: 'Tasks',
       status: false,
       statusCode: 500,
-      statusText: 'Internal Server Error'
+      statusText: 'Internal Server Error',
+      message: 'Failed to create task'
     })
   }
 }
@@ -89,7 +89,8 @@ const updateTask = async (req: Request, res: Response) => {
     res.status(500).send({
       status: false,
       statusCode: 500,
-      message: 'Internal Server Error',
+      statusText: 'Internal Server Error',
+      message: 'Failed to update task',
       data: error
     })
   }
@@ -113,7 +114,8 @@ const deleteTask = async (req: Request, res: Response) => {
     res.status(500).send({
       status: false,
       statusCode: 500,
-      message: 'Internal Server Error',
+      statusText: 'Internal Server Error',
+      message: 'Failed to delete task',
       data: error
     })
   }
