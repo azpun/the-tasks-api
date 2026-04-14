@@ -43,6 +43,8 @@ npm run dev
 
 The server will start on `http://localhost:3000`.
 
+### gunakan Postman atau curl untuk mengakses API endpoints.
+
 ### API Endpoints
 
 #### Authentication
@@ -253,10 +255,6 @@ DELETE /api/v1/tasks/:taskId
   "status": true,
   "statusCode": 200,
   "message": "Task deleted successfully",
-  "data": {
-    "task_id": "some-uuid",
-    "title": "Task 1",
-    "description": "Description 1",
-    "status": "pending",
-    "user_id": "some-uuid",
-    "created_at": "2023-10-27T10:00:00.000Z
+  "data": null
+}
+```

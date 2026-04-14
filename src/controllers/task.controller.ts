@@ -1,7 +1,6 @@
 import { type Request, type Response } from 'express'
 import { logger } from '../utils/logger.js'
 import { addTasksDB, deleteTaskById, getTaskById, getTasksDB, updateTaskById } from '../services/task.service.js'
-// import { v7 as uuidv7 } from 'uuid'
 
 const getTasks = async (req: Request, res: Response) => {
   try {
@@ -9,10 +8,9 @@ const getTasks = async (req: Request, res: Response) => {
     const tasks: any = await getTasksDB()
     logger.info('Get Tasks Data Success')
     return res.status(200).send({
-      message: 'Tasks',
       status: true,
       statusCode: 200,
-      statusText: 'OK',
+      message: 'Tasks found successfully',
       data: tasks
     })
   } catch (error) {
@@ -35,19 +33,17 @@ const getTaskByIdHandler = async (req: Request, res: Response) => {
   if (task) {
     logger.info('Get Task Data Success')
     return res.status(200).send({
-      message: 'Tasks',
       status: true,
       statusCode: 200,
-      statusText: 'OK',
+      message: 'Task found successfully',
       data: task
     })
   } else {
     logger.info('Get Task Data Failed')
     return res.status(404).send({
-      message: 'Tasks',
       status: true,
       statusCode: 404,
-      statusText: 'Data Not Found',
+      message: 'Data Not Found',
       data: []
     })
   }
@@ -60,10 +56,9 @@ const createTask = async (req: Request, res: Response) => {
 
     logger.info('Add New Task Success')
     res.status(200).send({
-      message: 'Tasks',
       status: true,
       statusCode: 201,
-      statusText: 'Created'
+      message: 'Task created successfully'
     })
   } catch (error) {
     logger.error(`Add New Task Failed: ${error}`)
@@ -85,18 +80,17 @@ const updateTask = async (req: Request, res: Response) => {
 
     logger.info('Update Task Success')
     res.status(200).send({
-      message: 'Tasks',
       status: true,
       statusCode: 200,
-      statusText: 'Update Task Successfully'
+      message: 'update task successfully'
     })
   } catch (error) {
     logger.error(`Update Task Failed: ${error}`)
     res.status(500).send({
-      message: 'Tasks',
       status: false,
       statusCode: 500,
-      statusText: 'Internal Server Error'
+      message: 'Internal Server Error',
+      data: error
     })
   }
 }
@@ -109,18 +103,18 @@ const deleteTask = async (req: Request, res: Response) => {
 
     logger.info('Delete Task Success')
     res.status(200).send({
-      message: 'Tasks',
       status: true,
       statusCode: 200,
-      statusText: 'OK - Delete Successfully'
+      message: 'Task deleted successfully',
+      data: null
     })
   } catch (error) {
     logger.error(`Delete Task Failed: ${error}`)
     res.status(500).send({
-      message: 'Tasks',
       status: false,
       statusCode: 500,
-      statusText: 'Internal Server Error'
+      message: 'Internal Server Error',
+      data: error
     })
   }
 }
