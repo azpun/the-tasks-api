@@ -45,9 +45,20 @@ The server will start on `http://localhost:3000`.
 
 ### gunakan Postman atau curl untuk mengakses API endpoints.
 
-### API Endpoints
 
-#### Authentication
+### API Endpoints
+#### CRUD Tasks
+- GET    /api/v1/tasks     (No Authentication Required)
+- POST   /api/v1/tasks
+- PUT    /api/v1/tasks/:id
+- DELETE /api/v1/tasks/:id
+
+#### Auth
+- POST   /api/v1/register
+- POST   /api/v1/login
+
+
+### Authentication
 
 **Register a new user**
 ```http

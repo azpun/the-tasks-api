@@ -19,7 +19,7 @@ LandingRouter.get('/', (req: Request, res: Response) => {
     <h3>Ini adalah root endpoint dari API the-tasks</h3>
     <p>Terdapat beberapa endpoint di dalam the-tasks, antara lain:</p>
     <ul>
-      <li>/api/v1/tasks</li>
+      <li>/api/v1/tasks (No Authentication Required)</li>
       <li>/api/v1/auth/login</li>
       <li>/api/v1/auth/register</li>
     </ul>
