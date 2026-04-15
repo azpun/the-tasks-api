@@ -1,4 +1,3 @@
-import serverless from 'serverless-http'
 import express from 'express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
@@ -59,4 +58,4 @@ if (process.env.NODE_ENV !== 'production') {
   })
 }
 
-export default serverless(app)
+export default app
