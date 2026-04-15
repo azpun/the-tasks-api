@@ -1,9 +1,11 @@
+import serverless from 'serverless-http'
 import express from 'express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
 import type { Application } from 'express'
 import { route } from './routes/index.js'
 import { logger } from './utils/logger.js'
+import swaggerJSDoc from 'swagger-jsdoc'
 
 // connect DB
 import './utils/connectDB.js'
@@ -11,6 +13,23 @@ import './utils/connectDB.js'
 import deserializeToken from './middleware/deserializeToken.middleware.js'
 
 const app: Application = express()
+
+export const swaggerSpec = swaggerJSDoc({
+  definition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'Simple Finance API',
+      version: '1.0.0',
+      description: 'API documentation'
+    },
+    servers: [
+      {
+        url: 'https://the-tasks-three.vercel.app/api'
+      }
+    ]
+  },
+  apis: ['src/routes/*.ts'] // path ke komentar API kamu
+})
 
 // body parser
 app.use(bodyParser.json())
@@ -40,4 +59,4 @@ if (process.env.NODE_ENV !== 'production') {
   })
 }
 
-export default app
+export default serverless(app)
